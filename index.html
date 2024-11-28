@@ -1,0 +1,160 @@
+<html lang="no">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Fallverdi Kalkulator</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css"></link>
+    <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;700&display=swap" rel="stylesheet">
+    <style>
+        body {
+            font-family: 'Roboto', sans-serif;
+        }
+    </style>
+</head>
+<body class="bg-gray-100 min-h-screen flex items-center justify-center">
+    <div class="bg-white p-8 rounded-lg shadow-lg w-full max-w-md">
+        <h1 class="text-2xl font-bold mb-6 text-center">Fallverdi Kalkulator</h1>
+        <form id="calculatorForm" class="space-y-6">
+            <div>
+                <h2 class="text-lg font-semibold mb-2">Omregning fra Fallforhold</h2>
+                <div class="space-y-4">
+                    <div class="flex items-center">
+                        <span class="text-sm font-medium text-gray-700 mr-2">1:</span>
+                        <input type="number" id="fallforholdValue" class="mt-1 block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm" placeholder="Skriv inn fallforhold">
+                    </div>
+                    <div class="text-center">
+                        <button type="button" id="convertFallforholdButton" class="w-full inline-flex justify-center py-2 px-4 border border-transparent shadow-sm text-sm font-medium rounded-md text-white bg-indigo-600 hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500">
+                            Konverter
+                        </button>
+                    </div>
+                    <div id="fallforholdResult" class="mt-4 text-center text-lg font-semibold text-gray-700">
+                        <div class="flex justify-between">
+                            <span>Prosent:</span>
+                            <span id="fallforholdProsent"></span>
+                            <button class="ml-2 text-indigo-600 hover:text-indigo-900" onclick="copyToClipboard('fallforholdProsent')"><i class="fas fa-copy"></i></button>
+                        </div>
+                        <div class="flex justify-between mt-2">
+                            <span>Grader:</span>
+                            <span id="fallforholdGrader"></span>
+                            <button class="ml-2 text-indigo-600 hover:text-indigo-900" onclick="copyToClipboard('fallforholdGrader')"><i class="fas fa-copy"></i></button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div>
+                <h2 class="text-lg font-semibold mb-2">Omregning fra Prosent</h2>
+                <div class="space-y-4">
+                    <div>
+                        <label for="prosentValue" class="block text-sm font-medium text-gray-700">Prosent (%)</label>
+                        <input type="number" id="prosentValue" class="mt-1 block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm" placeholder="Skriv inn prosent">
+                    </div>
+                    <div class="text-center">
+                        <button type="button" id="convertProsentButton" class="w-full inline-flex justify-center py-2 px-4 border border-transparent shadow-sm text-sm font-medium rounded-md text-white bg-indigo-600 hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500">
+                            Konverter
+                        </button>
+                    </div>
+                    <div id="prosentResult" class="mt-4 text-center text-lg font-semibold text-gray-700">
+                        <div class="flex justify-between">
+                            <span>Prosent:</span>
+                            <span id="prosentProsent"></span>
+                            <button class="ml-2 text-indigo-600 hover:text-indigo-900" onclick="copyToClipboard('prosentProsent')"><i class="fas fa-copy"></i></button>
+                        </div>
+                        <div class="flex justify-between mt-2">
+                            <span>Grader:</span>
+                            <span id="prosentGrader"></span>
+                            <button class="ml-2 text-indigo-600 hover:text-indigo-900" onclick="copyToClipboard('prosentGrader')"><i class="fas fa-copy"></i></button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div>
+                <h2 class="text-lg font-semibold mb-2">Omregning fra Grader</h2>
+                <div class="space-y-4">
+                    <div>
+                        <label for="graderValue" class="block text-sm font-medium text-gray-700">Grader (°)</label>
+                        <input type="number" id="graderValue" class="mt-1 block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm" placeholder="Skriv inn grader">
+                    </div>
+                    <div class="text-center">
+                        <button type="button" id="convertGraderButton" class="w-full inline-flex justify-center py-2 px-4 border border-transparent shadow-sm text-sm font-medium rounded-md text-white bg-indigo-600 hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500">
+                            Konverter
+                        </button>
+                    </div>
+                    <div id="graderResult" class="mt-4 text-center text-lg font-semibold text-gray-700">
+                        <div class="flex justify-between">
+                            <span>Prosent:</span>
+                            <span id="graderProsent"></span>
+                            <button class="ml-2 text-indigo-600 hover:text-indigo-900" onclick="copyToClipboard('graderProsent')"><i class="fas fa-copy"></i></button>
+                        </div>
+                        <div class="flex justify-between mt-2">
+                            <span>Grader:</span>
+                            <span id="graderGrader"></span>
+                            <button class="ml-2 text-indigo-600 hover:text-indigo-900" onclick="copyToClipboard('graderGrader')"><i class="fas fa-copy"></i></button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </form>
+    </div>
+
+    <script>
+        function copyToClipboard(elementId) {
+            const text = document.getElementById(elementId).innerText;
+            navigator.clipboard.writeText(text).then(() => {
+                alert('Kopiert til utklippstavlen: ' + text);
+            });
+        }
+
+        document.getElementById('convertFallforholdButton').addEventListener('click', function() {
+            const fallforholdValue = parseFloat(document.getElementById('fallforholdValue').value);
+            let prosent = '';
+            let grader = '';
+
+            if (isNaN(fallforholdValue)) {
+                prosent = 'Vennligst skriv inn en gyldig verdi.';
+                grader = '';
+            } else {
+                prosent = (100 / fallforholdValue).toFixed(2) + ' %';
+                grader = (Math.atan(1 / fallforholdValue) * (180 / Math.PI)).toFixed(2) + '°';
+            }
+
+            document.getElementById('fallforholdProsent').innerText = prosent;
+            document.getElementById('fallforholdGrader').innerText = grader;
+        });
+
+        document.getElementById('convertProsentButton').addEventListener('click', function() {
+            const prosentValue = parseFloat(document.getElementById('prosentValue').value);
+            let prosent = '';
+            let grader = '';
+
+            if (isNaN(prosentValue)) {
+                prosent = 'Vennligst skriv inn en gyldig verdi.';
+                grader = '';
+            } else {
+                prosent = prosentValue.toFixed(2) + ' %';
+                grader = (Math.atan(prosentValue / 100) * (180 / Math.PI)).toFixed(2) + '°';
+            }
+
+            document.getElementById('prosentProsent').innerText = prosent;
+            document.getElementById('prosentGrader').innerText = grader;
+        });
+
+        document.getElementById('convertGraderButton').addEventListener('click', function() {
+            const graderValue = parseFloat(document.getElementById('graderValue').value);
+            let prosent = '';
+            let grader = '';
+
+            if (isNaN(graderValue)) {
+                prosent = 'Vennligst skriv inn en gyldig verdi.';
+                grader = '';
+            } else {
+                prosent = (Math.tan(graderValue * (Math.PI / 180)) * 100).toFixed(2) + ' %';
+                grader = graderValue.toFixed(2) + '°';
+            }
+
+            document.getElementById('graderProsent').innerText = prosent;
+            document.getElementById('graderGrader').innerText = grader;
+        });
+    </script>
+</body>
+</html>
